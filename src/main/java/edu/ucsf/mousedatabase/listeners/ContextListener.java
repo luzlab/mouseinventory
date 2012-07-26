@@ -69,24 +69,23 @@ public class ContextListener implements ServletContextListener
       initCtx = new InitialContext();
 
         Context envCtx = (Context) initCtx.lookup("java:comp/env");
-
-        MGIConnect.Initialize((String)envCtx.lookup("MOUSEDATABASE_MGI_DRIVER_NAME"),
-          (String)envCtx.lookup("MOUSEDATABASE_MGI_DATABASE_URL"),
-          (String)envCtx.lookup("MOUSEDATABASE_MGI_DATABASE_USER"),
-          (String)envCtx.lookup("MOUSEDATABASE_MGI_DATABASE_PW"));
+        MGIConnect.Initialize(java.lang.System.getenv("MOUSEDATABASE_MGI_DRIVER_NAME"),
+          java.lang.System.getenv("MOUSEDATABASE_MGI_DATABASE_URL"),
+          java.lang.System.getenv("MOUSEDATABASE_MGI_DATABASE_USER"),
+          java.lang.System.getenv("MOUSEDATABASE_MGI_DATABASE_PW"));
 
 
         HTMLGeneration.setGoogleAnalyticsId(
-            (String)envCtx.lookup("GOOGLE_ANALYTICS_ACCOUNT"),
-            (String)envCtx.lookup("GOOGLE_ANALYTICS_DOMAIN_SUFFIX"));
-        HTMLGeneration.SiteName = (String)envCtx.lookup("MOUSEDATABASE_SITE_NAME");
-        HTMLGeneration.AdminEmail = (String)envCtx.lookup("MOUSEDATABASE_ADMINISTRATOR_EMAIL");
+            java.lang.System.getenv("GOOGLE_ANALYTICS_ACCOUNT"),
+            java.lang.System.getenv("GOOGLE_ANALYTICS_DOMAIN_SUFFIX"));
+        HTMLGeneration.SiteName = java.lang.System.getenv("MOUSEDATABASE_SITE_NAME");
+        HTMLGeneration.AdminEmail = java.lang.System.getenv("MOUSEDATABASE_ADMINISTRATOR_EMAIL");
         
-        MouseMail.intitialize((String)envCtx.lookup("MOUSEDATABASE_SMTP_SERVER"),
-            (String)envCtx.lookup("MOUSEDATABASE_SMTP_USER"), 
-            (String)envCtx.lookup("MOUSEDATABASE_SMTP_PW"),
-            (Integer)envCtx.lookup("MOUSEDATABASE_SMTP_PORT"),
-            Boolean.parseBoolean((String)envCtx.lookup("MOUSEDATABASE_SMTP_SSL_ENABLED")));
+        MouseMail.intitialize(java.lang.System.getenv("MOUSEDATABASE_SMTP_SERVER"),
+            java.lang.System.getenv("MOUSEDATABASE_SMTP_USER"), 
+            java.lang.System.getenv("MOUSEDATABASE_SMTP_PW"),
+            Integer.parseInt(java.lang.System.getenv("MOUSEDATABASE_SMTP_PORT")),
+            Boolean.parseBoolean(java.lang.System.getenv("MOUSEDATABASE_SMTP_SSL_ENABLED")));
 
     }
     catch (NamingException e) {
